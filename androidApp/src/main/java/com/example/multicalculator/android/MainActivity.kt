@@ -64,6 +64,7 @@ Row {
             Column {
 for (i in 7 downTo 1 step 3) CalcRow(display = displayText, startNum = i, numButtons = 3)
             }
+
             Column {
                 CalcOperationButton(operation = "+", display = displayText  )
                 CalcOperationButton(operation = "-", display = displayText  )
@@ -94,7 +95,6 @@ fun CalcNumericButton(number : Int , display: MutableState<String>){
 Button(onClick = {
                  display.value += number.toString()
 }, modifier = Modifier.padding(4.dp))
-
 {
 Text(text = number.toString())
 }
@@ -112,6 +112,7 @@ fun CalcEqualsButton(display : MutableState<String>){
 Button(onClick = {
     display.value = "0"
 },
+
 modifier = Modifier.padding(4.dp)    )
 { }
 }
