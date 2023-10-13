@@ -51,7 +51,6 @@ fun DefaultPreview() {
     MyApplicationTheme {
         GreetingView("Hello, Android!")
     }
-
 }
 @Composable
 fun CalcView(){
@@ -68,7 +67,6 @@ for (i in 7 downTo 1 step 3) CalcRow(display = displayText, startNum = i, numBut
                     CalcEqualsButton(display = displayText)
                 }
             }
-
             Column {
                 CalcOperationButton(operation = "+", display = displayText  )
                 CalcOperationButton(operation = "-", display = displayText  )
