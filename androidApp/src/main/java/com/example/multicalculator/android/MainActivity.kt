@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,6 +23,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.unit.sp
 
 
 class MainActivity : ComponentActivity() {
@@ -33,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    GreetingView(Greeting().greet())
+                    CalcView()
                 }
             }
         }
@@ -55,7 +58,7 @@ fun DefaultPreview() {
 @Composable
 fun CalcView(){
 val displayText = remember {mutableStateOf("0")}
-    Column(modifier = Modifier.background(Color.LightGray)) {
+    Column(modifier = Modifier.background(Color.LightGray) then  Modifier.padding(40.dp)) {
 Row {
     CalcDisplay(displayText)
 }
@@ -88,33 +91,32 @@ for (i in startNum until endNum){
 @Composable
 fun CalcDisplay(display: MutableState<String>){
 Text(text = display.value, modifier = Modifier
-    .height(50.dp)
+    .height(250.dp)
     .fillMaxWidth()
-    .padding(5.dp))
+    .padding(9.dp) , fontSize = 45.sp)
 }
 @Composable
 fun CalcNumericButton(number : Int , display: MutableState<String>){
 Button(onClick = {
                  display.value += number.toString()
-}, modifier = Modifier.padding(4.dp))
+}, modifier = Modifier.padding(10.dp).size(60.dp))
 {
-Text(text = number.toString())
+Text(text = number.toString() , fontSize = 30.sp)
 }
 }
 @Composable
 fun CalcOperationButton(operation : String , display: MutableState<String>){
 Button(onClick = { /*TODO*/ },
-    modifier = Modifier.padding(4.dp)
+    modifier = Modifier.padding(10.dp).size(60.dp)
 ) {
-    Text(text = operation)
+    Text(text = operation , fontSize = 30.sp)
 }
 }
 @Composable
 fun CalcEqualsButton(display : MutableState<String>){
-Button(onClick = {
-    display.value = "0"
-},
+Button(modifier = Modifier.padding(10.dp).size(60.dp),onClick = {display.value = "0"}) {
+Text(text = "=" ,  fontSize = 30.sp)
+}
 
-modifier = Modifier.padding(4.dp)    )
-{ }
+
 }
