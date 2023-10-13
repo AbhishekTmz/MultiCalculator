@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +21,7 @@ import androidx.compose.material.Button
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.remember
-
+import androidx.compose.ui.graphics.Color
 
 
 class MainActivity : ComponentActivity() {
@@ -54,6 +56,22 @@ fun DefaultPreview() {
 @Composable
 fun CalcView(){
 val displayText = remember {mutableStateOf("0")}
+    Column(modifier = Modifier.background(Color.LightGray)) {
+Row {
+    CalcDisplay(displayText)
+}
+        Row {
+            Column {
+for (i in 7 downTo 1 step 3) CalcRow(display = displayText, startNum = i, numButtons = 3)
+            }
+            Column {
+                CalcOperationButton(operation = "+", display = displayText  )
+                CalcOperationButton(operation = "-", display = displayText  )
+                CalcOperationButton(operation = "*", display = displayText  )
+                CalcOperationButton(operation = "/", display = displayText  )
+            }
+        }
+    }
 }
 @Composable
 fun CalcRow(display: MutableState<String>, startNum : Int, numButtons : Int){
