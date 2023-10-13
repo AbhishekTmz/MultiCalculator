@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,7 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.multicalculator.Greeting
 import androidx.compose.runtime.MutableState
 import androidx.compose.material.Button
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.remember
+
 
 
 class MainActivity : ComponentActivity() {
@@ -49,15 +53,23 @@ fun DefaultPreview() {
 }
 @Composable
 fun CalcView(){
-
+val displayText = remember {mutableStateOf("0")}
 }
 @Composable
-fun CalcRow(){
-
+fun CalcRow(display: MutableState<String>, startNum : Int, numButtons : Int){
+val endNum = startNum + numButtons
+    Row (modifier = Modifier.padding(0.dp)){
+for (i in startNum until endNum){
+    CalcNumericButton(number = i, display = display)
+}
+    }
 }
 @Composable
 fun CalcDisplay(display: MutableState<String>){
-Text(text = display.value, modifier = Modifier.height(50.dp).fillMaxWidth().padding(5.dp))
+Text(text = display.value, modifier = Modifier
+    .height(50.dp)
+    .fillMaxWidth()
+    .padding(5.dp))
 }
 @Composable
 fun CalcNumericButton(number : Int , display: MutableState<String>){
