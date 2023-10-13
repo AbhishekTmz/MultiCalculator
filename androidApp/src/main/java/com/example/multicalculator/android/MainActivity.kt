@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -55,22 +56,32 @@ fun CalcRow(){
 
 }
 @Composable
-fun CalcDisplay(){
-
+fun CalcDisplay(display: MutableState<String>){
+Text(text = display.value, modifier = Modifier.height(50.dp).fillMaxWidth().padding(5.dp))
 }
 @Composable
-fun CalcNumericButton(){
+fun CalcNumericButton(number : Int , display: MutableState<String>){
+Button(onClick = {
+                 display.value += number.toString()
+}, modifier = Modifier.padding(4.dp))
 
+{
+Text(text = number.toString())
+}
 }
 @Composable
-fun CalcOperationButton(){
-
+fun CalcOperationButton(operation : String , display: MutableState<String>){
+Button(onClick = { /*TODO*/ },
+    modifier = Modifier.padding(4.dp)
+) {
+    Text(text = operation)
+}
 }
 @Composable
 fun CalcEqualsButton(display : MutableState<String>){
 Button(onClick = {
     display.value = "0"
 },
-modifier = Modifier.fillMaxSize() then Modifier.padding(4.dp)    )
+modifier = Modifier.padding(4.dp)    )
 { }
 }
