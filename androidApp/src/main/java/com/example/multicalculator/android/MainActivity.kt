@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 
@@ -52,13 +53,13 @@ fun GreetingView(text: String) {
 @Composable
 fun DefaultPreview() {
     MyApplicationTheme {
-        GreetingView("Hello, Android!")
+      CalcView()
     }
 }
 @Composable
 fun CalcView(){
 val displayText = remember {mutableStateOf("0")}
-    Column(modifier = Modifier.background(Color.LightGray) then  Modifier.padding(40.dp)) {
+    Column(modifier = Modifier.background(Color.LightGray) then  Modifier.padding(0.dp)) {
 Row {
     CalcDisplay(displayText)
 }
@@ -91,31 +92,37 @@ for (i in startNum until endNum){
 @Composable
 fun CalcDisplay(display: MutableState<String>){
 Text(text = display.value, modifier = Modifier
-    .height(250.dp)
+    .height(400.dp)
     .fillMaxWidth()
-    .padding(9.dp) , fontSize = 45.sp)
+    .padding(9.dp) , fontSize = 100.sp)
 }
 @Composable
 fun CalcNumericButton(number : Int , display: MutableState<String>){
 Button(onClick = {
                  display.value += number.toString()
-}, modifier = Modifier.padding(10.dp).size(60.dp))
+}, modifier = Modifier
+    .padding(4.dp)
+    .size(95.dp) , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified), )
 {
-Text(text = number.toString() , fontSize = 30.sp)
+Text(text = number.toString() , fontSize = 30.sp , fontWeight = FontWeight.Bold)
 }
 }
 @Composable
 fun CalcOperationButton(operation : String , display: MutableState<String>){
 Button(onClick = { /*TODO*/ },
-    modifier = Modifier.padding(10.dp).size(60.dp)
+    modifier = Modifier
+        .padding(4.dp)
+        .size(95.dp),colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified)
 ) {
-    Text(text = operation , fontSize = 30.sp)
+    Text(text = operation , fontSize = 30.sp , fontWeight = FontWeight.Bold)
 }
 }
 @Composable
 fun CalcEqualsButton(display : MutableState<String>){
-Button(modifier = Modifier.padding(10.dp).size(60.dp),onClick = {display.value = "0"}) {
-Text(text = "=" ,  fontSize = 30.sp)
+Button(modifier = Modifier
+    .padding(4.dp)
+    .size(95.dp),onClick = {display.value = "0"} , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified)) {
+Text(text = "=" ,  fontSize = 30.sp , fontWeight = FontWeight.Bold)
 }
 
 
