@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -102,7 +103,7 @@ Button(onClick = {
                  display.value += number.toString()
 }, modifier = Modifier
     .padding(4.dp)
-    .size(95.dp) , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified), )
+    .size(95.dp) , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified), shape = RoundedCornerShape(10.dp) )
 {
 Text(text = number.toString() , fontSize = 30.sp , fontWeight = FontWeight.Bold)
 }
@@ -112,7 +113,7 @@ fun CalcOperationButton(operation : String , display: MutableState<String>){
 Button(onClick = { /*TODO*/ },
     modifier = Modifier
         .padding(4.dp)
-        .size(95.dp),colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified)
+        .size(95.dp),colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified), shape = RoundedCornerShape(10.dp)
 ) {
     Text(text = operation , fontSize = 30.sp , fontWeight = FontWeight.Bold)
 }
@@ -121,7 +122,7 @@ Button(onClick = { /*TODO*/ },
 fun CalcEqualsButton(display : MutableState<String>){
 Button(modifier = Modifier
     .padding(4.dp)
-    .size(95.dp),onClick = {display.value = "0"} , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified)) {
+    .size(95.dp),onClick = {display.value = "0"} , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified) ,  shape = RoundedCornerShape(10.dp)) {
 Text(text = "=" ,  fontSize = 30.sp , fontWeight = FontWeight.Bold)
 }
 
