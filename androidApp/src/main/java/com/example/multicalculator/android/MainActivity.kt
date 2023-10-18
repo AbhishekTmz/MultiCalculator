@@ -111,27 +111,27 @@ Row {
 }
         Row {
             Column {
-for (i in 7 downTo 1 step 3) CalcRow(display = displayText, startNum = i, numButtons = 3)
+for (i in 7 downTo 1 step 3) CalcRow( startNum = i, numButtons = 3 , onPress = {number -> numPress(number) })
                 Row {
-                    CalcNumericButton(number = 0, display =displayText )
-                    CalcEqualsButton(display = displayText)
+                    CalcNumericButton(number = 0, onPress = {number ->numPress(number)  })
+                    CalcEqualsButton(onPress = {equalsPress()})
                 }
             }
             Column {
-                CalcOperationButton(operation = "+", display = displayText  )
-                CalcOperationButton(operation = "-", display = displayText  )
-                CalcOperationButton(operation = "*", display = displayText  )
-                CalcOperationButton(operation = "/", display = displayText  )
+                CalcOperationButton(operation = "+", onPress = {op -> operationPress(op)} )
+                CalcOperationButton(operation = "-", onPress = {op -> operationPress(op) }  )
+                CalcOperationButton(operation = "*", onPress = {op -> operationPress(op)}  )
+                CalcOperationButton(operation = "/", onPress = {op -> operationPress(op)} )
             }
         }
     }
 }
 @Composable
-fun CalcRow(display: MutableState<String>, startNum : Int, numButtons : Int){
+fun CalcRow(onPress: (number: Int) -> Unit, startNum : Int, numButtons : Int){
 val endNum = startNum + numButtons
     Row (modifier = Modifier.padding(0.dp)){
 for (i in startNum until endNum){
-    CalcNumericButton(number = i, display = display)
+    CalcNumericButton(number = i, onPress= onPress)
 }
     }
 }
@@ -143,9 +143,9 @@ Text(text = display.value, modifier = Modifier
     .padding(9.dp) , fontSize = 100.sp)
 }
 @Composable
-fun CalcNumericButton(number : Int , display: MutableState<String>){
+fun CalcNumericButton(number : Int , onPress: (number : Int) -> Unit){
 Button(onClick = {
-                 display.value += number.toString()
+                 onPress(number)
 }, modifier = Modifier
     .padding(4.dp)
     .size(95.dp) , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified), shape = RoundedCornerShape(10.dp) )
@@ -154,8 +154,8 @@ Text(text = number.toString() , fontSize = 30.sp , fontWeight = FontWeight.Bold)
 }
 }
 @Composable
-fun CalcOperationButton(operation : String , display: MutableState<String>){
-Button(onClick = { /*TODO*/ },
+fun CalcOperationButton(operation : String , onPress : (operation : String)-> Unit){
+Button(onClick = { onPress(operation)},
     modifier = Modifier
         .padding(4.dp)
         .size(95.dp),colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified), shape = RoundedCornerShape(10.dp)
@@ -164,10 +164,10 @@ Button(onClick = { /*TODO*/ },
 }
 }
 @Composable
-fun CalcEqualsButton(display : MutableState<String>){
+fun CalcEqualsButton(onPress : ()-> Unit){
 Button(modifier = Modifier
     .padding(4.dp)
-    .size(95.dp),onClick = {display.value = "0"} , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified) ) {
+    .size(95.dp),onClick = {onPress()} , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified) ) {
 Text(text = "=" ,  fontSize = 30.sp , fontWeight = FontWeight.Bold)
 }
 
