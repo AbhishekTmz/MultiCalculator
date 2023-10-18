@@ -20,9 +20,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.multicalculator.Greeting
 import androidx.compose.runtime.MutableState
 import androidx.compose.material.Button
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -59,7 +63,29 @@ fun DefaultPreview() {
 }
 @Composable
 fun CalcView(){
-val displayText = remember {mutableStateOf("0")}
+var displayText = remember {mutableStateOf("0")}
+    val  leftNumber by rememberSaveable { mutableStateOf(0)}
+    val  rightNumber by rememberSaveable { mutableStateOf(0)}
+    var operation by rememberSaveable { mutableStateOf("") }
+    var complete by rememberSaveable { mutableStateOf(false) }
+if (complete && operation.isNotEmpty()){
+    var answer  = 0;
+    when (operation){
+        "+"-> answer = leftNumber + rightNumber
+        "-"-> answer =leftNumber - rightNumber
+        "*"-> answer = leftNumber * rightNumber
+        "/"-> answer = leftNumber / rightNumber
+    }
+    displayText.value = answer.toString()
+}else if (operation.isNotEmpty() && !complete){
+    displayText.value = rightNumber.toString()
+}else{
+    displayText.value = leftNumber.toString()
+}
+    fun numPress(){}
+    fun operationPress(){}
+    fun equalsPress(){}
+
     Column(modifier = Modifier.background(Color.LightGray) then  Modifier.padding(0.dp)) {
 Row {
     CalcDisplay(displayText)
@@ -122,7 +148,7 @@ Button(onClick = { /*TODO*/ },
 fun CalcEqualsButton(display : MutableState<String>){
 Button(modifier = Modifier
     .padding(4.dp)
-    .size(95.dp),onClick = {display.value = "0"} , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified) ,  shape = RoundedCornerShape(10.dp)) {
+    .size(95.dp),onClick = {display.value = "0"} , colors = ButtonDefaults.buttonColors(backgroundColor = Color.Unspecified) ) {
 Text(text = "=" ,  fontSize = 30.sp , fontWeight = FontWeight.Bold)
 }
 
