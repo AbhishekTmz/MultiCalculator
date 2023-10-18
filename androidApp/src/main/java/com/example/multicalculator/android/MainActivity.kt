@@ -64,8 +64,8 @@ fun DefaultPreview() {
 @Composable
 fun CalcView(){
 var displayText = remember {mutableStateOf("0")}
-    val  leftNumber by rememberSaveable { mutableStateOf(0)}
-    val  rightNumber by rememberSaveable { mutableStateOf(0)}
+    var leftNumber by rememberSaveable { mutableStateOf(0)}
+    var rightNumber by rememberSaveable { mutableStateOf(0)}
     var operation by rememberSaveable { mutableStateOf("") }
     var complete by rememberSaveable { mutableStateOf(false) }
 if (complete && operation.isNotEmpty()){
@@ -82,9 +82,23 @@ if (complete && operation.isNotEmpty()){
 }else{
     displayText.value = leftNumber.toString()
 }
-    fun numPress(){}
-    fun operationPress(){}
-    fun equalsPress(){}
+    fun numPress(btnName : Int){
+        if (complete){
+            leftNumber= 0
+            rightNumber = 0
+            operation = ""
+            complete= false
+
+        }
+    }
+    fun operationPress(op : String){
+        if (!complete){
+operation = op
+        }
+    }
+    fun equalsPress(){
+        complete = true
+    }
 
     Column(modifier = Modifier.background(Color.LightGray) then  Modifier.padding(0.dp)) {
 Row {
