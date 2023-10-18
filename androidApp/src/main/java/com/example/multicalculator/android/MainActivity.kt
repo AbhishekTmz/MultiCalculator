@@ -90,6 +90,11 @@ if (complete && operation.isNotEmpty()){
             complete= false
 
         }
+        if (operation.isNotBlank() && !complete){
+            rightNumber = (rightNumber * 10) + btnName
+        }else if (operation.isBlank() && !complete){
+            leftNumber = (leftNumber * 10) +  btnName
+        }
     }
     fun operationPress(op : String){
         if (!complete){
